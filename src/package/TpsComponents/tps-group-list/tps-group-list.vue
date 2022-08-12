@@ -148,7 +148,8 @@ export default {
   },
   watch: {
     options: {
-      handler() {
+      handler(val) {
+        console.log(val);
         this.init();
       },
       deep: true,

@@ -102,7 +102,19 @@ export default {
         }
       }
     },
+    updateNavItemHeightGroup() {
+      const content = this.$refs.content.children;
+      this.contentHeightList = [];
+      for (const i in content) {
+        if (!isNaN(+i)) {
+          // 有 i = length 属性
+          this.contentHeightList.push(content[i].offsetHeight);
+        }
+      }
+    },
     clickNav(index) {
+      this.updateNavItemHeightGroup();
+
       // 滚动距离
       let height = 0;
       let heightList = [];

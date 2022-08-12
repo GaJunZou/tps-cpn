@@ -34,9 +34,8 @@ export default {
       });
       i--;
     }
-    this.value = [options[0].value]
+    this.value = [options[0].value];
     this.options = options;
-    console.log(this.options);
   },
 };
 </script>
