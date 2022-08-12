@@ -1,4 +1,4 @@
-# bgv-ui
+<!-- # bgv-ui
 
 ### 介绍
 
@@ -61,5 +61,6 @@ Logged in as zaugazeon on https://registry.npmjs.org/.
 1.  Fork 本仓库
 2.  新建 Feat_xxx 分支
 3.  提交代码
-4.  新建 Pull Request
+4.  新建 Pull Request -->
 
+请查阅：[在线文档](https://gajunzou.github.io/tps-cpn/)
