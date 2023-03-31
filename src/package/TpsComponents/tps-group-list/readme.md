@@ -6,7 +6,6 @@
       v-model="value"
       :options="treeData"
       :placeholder="'这是placeholder'"
-      :size="'small'"
       :label="'选择器'"
       :width="'450px'"
       :rowsCount="4"
@@ -62,7 +61,9 @@
 </script>
 ```
 
-使用说明
+### 使用说明
+
+#### props
 
 | 参数        | 说明                                     | 类型                     | 默认值          |
 | ----------- | ---------------------------------------- | ------------------------ | --------------- |
@@ -75,6 +76,15 @@
 | label       | 选择器左边的说明文字,如传入空则不显示    | string                   | ''              |
 | width       | 选择器的宽                               | string                   | '200px'         |
 | expand      | 是否默认展开                             | boolean                  | false           |
+| multiple    | 多选模式。默认打开。                     | boolean                  | true            |
+
+#### event
+
+| 事件             | 说明                         | 参数 | 返回值   |
+| ---------------- | ---------------------------- | ---- | -------- |
+| `getCheckedNode` | 获取当前节点数组的其他信息。 | --   | 节点数组 |
+
+#### 参数类型
 
 ```ts
 interface Options {

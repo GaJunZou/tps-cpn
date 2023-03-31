@@ -35,6 +35,8 @@ module.exports = {
                 '/guide/component/tps-layout',
                 '/guide/component/tps-cascader',
                 '/guide/component/tps-sorter',
+                '/guide/component/tps-visual-select',
+                '/guide/component/tps-copy-tip',
               ],
             },
             {

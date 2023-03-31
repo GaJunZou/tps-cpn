@@ -1,8 +1,8 @@
 <template>
-  <div class="zz-container" ref="zzcontainer" :style="{ height: height }">
+  <div class="tps-container" ref="zzcontainer" :style="{ height: height }">
     <slot name="search-bar"></slot>
     <slot name="table"></slot>
-    <div class="zz-pagination" v-if="showPagination">
+    <div class="tps-pagination" v-if="showPagination">
       <el-pagination
         :key="key"
         @size-change="handleSizeChange"
@@ -89,7 +89,7 @@ export default {
         const table = zzcontainer.children[1];
         const pagination = zzcontainer.children[2];
         const tableBody = table.querySelector('.el-table__body-wrapper');
-        tableBody.className += tableBody.className.includes('zz-scroller') ? '' : ' zz-scroller';
+        tableBody.className += tableBody.className.includes('tps-scroller') ? '' : ' tps-scroller';
         const searchBarHeight = searchBar.clientHeight;
         const paginationHeight = pagination ? pagination.clientHeight : 0;
         const tableHeaderHeight = table.querySelector('.el-table__header-wrapper')?.clientHeight;

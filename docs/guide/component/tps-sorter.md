@@ -1,4 +1,4 @@
-##### 4. tps-sorter
+##### 8. tps-sorter
 
 排序组件
 

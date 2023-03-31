@@ -1,6 +1,6 @@
 <template>
   <div v-if="visiable" ref="imageContainer" class="view-image">
-    <div class="mask"></div>
+    <div class="mask" @click="log"></div>
     <button @click="plus()" class="el-carousel__arrow plus">
       <i class="el-icon-zoom-in"></i>
     </button>
@@ -134,10 +134,12 @@ export default {
   z-index: 999;
   // height: 100vh;
   .close {
+    color: #fff;
     position: absolute;
     right: 0;
     top: 20px;
     z-index: 10;
+    opacity: 0.8;
   }
   .plus {
     position: fixed;
@@ -169,7 +171,9 @@ export default {
     left: calc(10%);
     .image {
       display: block;
-      margin: auto;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
       object-fit: contain;
       max-width: 100%;
     }

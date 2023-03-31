@@ -1,4 +1,4 @@
-##### 7. `nz-cascader`
+##### 7. `tps-cascader`
 
 <template>
   <my-container>

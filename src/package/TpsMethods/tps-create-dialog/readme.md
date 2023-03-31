@@ -9,39 +9,43 @@ content 可以传入字符串、组件对象、渲染函数或 JSX 函数。其�
 ```html
 <template>
   <div>
-    <el-button @click="openDialog" size="small" type="primary">打开弹窗</el-button>
     <ul>
-      <li @click="useType(1)">普通文字</li>
-      <li @click="useType(2)">组件</li>
-      <li @click="useType(3)">渲染函数</li>
-      <li @click="useType(4)">JSX</li>
+      <el-button @click="useType(1)">普通文字</el-button>
+      <el-button @click="useType(2)">组件</el-button>
+      <el-button @click="useType(3)">渲染函数</el-button>
+      <el-button @click="useType(4)">JSX</el-button>
     </ul>
   </div>
 </template>
 <script>
-  import cpn from './cpn.vue';
+  import cpn from './tps-create-dialog-demo-cpn.vue';
   export default {
     components: { cpn },
-    data: () {
-      type: '使用普通文字',
+    data() {
+      return {
+        type: '使用普通文字',
+      };
     },
     methods: {
       useType(type) {
         switch (type) {
           case 1:
-            type = '使用普通文字';
+            this.type = '使用普通文字';
+            break;
           case 2:
-            type = cpn;
+            this.type = cpn;
+            break;
           case 3:
-            type = h => {
-              return h("h1", {
-                style: { color: "#f56c6c", },
-                domProps: { innerHTML: "这是使用渲染函数打开的dialog", },
+            this.type = (h) => {
+              return h('h1', {
+                style: { color: '#f56c6c' },
+                domProps: { innerHTML: '这是使用渲染函数打开的dialog' },
               });
             };
+            break;
           case 4:
             // 此时script标签添加参数 lang="jsx"
-            type = h => {
+            this.type = (h) => {
               return (
                 <ul>
                   <li>1</li>
@@ -49,13 +53,20 @@ content 可以传入字符串、组件对象、渲染函数或 JSX 函数。其�
                   <li>3</li>
                 </ul>
               );
-            }
+            };
+            break;
         }
+        this.openDialog();
       },
       openDialog() {
         this.tpsCreateDialog({
           title: '服务式弹窗基本使用',
-          content: type,
+          content: this.type,
+          params: {
+            name: 'loki',
+            height: '179cm',
+            weight: '60kg',
+          },
           footer: false,
           onConfirm: (res) => {
             console.log('点击确认时回调');
@@ -95,7 +106,7 @@ content 可以传入字符串、组件对象、渲染函数或 JSX 函数。其�
 </template>
 <script>
   export default {
-    props: ['params', 'dialog'],
+    props: ['dialog'],
     methods: {
       cancel() {
         this.dialog.methods.close();
@@ -144,7 +155,7 @@ const inst = vm.tpsCreateDialog({
 
 说明：
 
-（1）传入的`params`是使用 prop 传入的，所以组件内部不能改变`params`的值。而且需要引入 `props: ['params']`才能使用。
+（1）提供给组件的`props`通过`params`传入，`params`的属性会全部通过 props 形式传入组件。
 
 （2）当 footer 设为 false 时，即代表自定义 footer，原来 footer 就没有了。此时需要在传入的自定义组件上引入 `props: ['dialog']`，然后调用`this.dialog.methods.close()`关闭弹窗。
 

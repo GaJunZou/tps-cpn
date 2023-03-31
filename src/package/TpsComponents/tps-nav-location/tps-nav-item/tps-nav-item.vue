@@ -1,5 +1,5 @@
 <template>
-  <div class="box" :title="title">
+  <div class="box" :data-title="title">
     <transition name="fade">
       <el-card :body-style="bodyStyle" class="box-card" ref="card">
         <div slot="header" class="clearfix" v-if="showTitle">
@@ -73,7 +73,7 @@ export default {
 }
 .info {
   margin-left: 10px;
-  color: #606266;
+  color: #aaaaac;
 }
 .expand-btn {
   float: right;

@@ -1,5 +1,5 @@
 <template>
-  <div class="zz-search-bar" ref="searchBar">
+  <div class="tps-search-bar" ref="searchBar">
     <div class="selecter-btn" ref="searchBtn">
       <el-button size="small" type="primary" @click="$emit('searchEvent')">搜索</el-button>
       <el-button size="small" @click="$emit('resetEvent')">重置</el-button>

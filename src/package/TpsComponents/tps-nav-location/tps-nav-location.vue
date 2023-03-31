@@ -1,11 +1,11 @@
 <template>
-  <div id="my-nav" :style="{ height: height, width: width }">
-    <div ref="content" @scroll="scrollNav()" class="nav-content zz-container" :style="{ flex: leftFlex }">
+  <div class="tps-nav" :style="{ height: height, width: width }">
+    <div ref="content" @scroll="scrollNav()" class="nav-content tps-container" :style="{ flex: leftFlex }">
       <slot></slot>
     </div>
-    <div :style="{ width: width, flex: rightFlex }" class="nav-location">
+    <div :style="{ flex: rightFlex }" class="nav-location">
       <div class="main-panel">
-        <slot name="main"></slot>
+        <slot name="top"></slot>
       </div>
       <div class="timeline-panel">
         <el-timeline>
@@ -21,6 +21,9 @@
             {{ item.title }}
           </el-timeline-item>
         </el-timeline>
+      </div>
+      <div class="main-panel">
+        <slot name="bottom"></slot>
       </div>
     </div>
   </div>
@@ -40,7 +43,7 @@ export default {
       scrollNav: debounce(() => {
         this.contentScrollTop = this.$refs.content.scrollTop;
       }, 200),
-      leftFlex: 6,
+      leftFlex: 4,
       rightFlex: 1,
     };
   },
@@ -91,7 +94,7 @@ export default {
       for (const i in content) {
         if (!isNaN(+i)) {
           // 有 i = length 属性
-          const c = content[i].getAttribute('title');
+          const c = content[i].getAttribute('data-title');
           content[i].setAttribute('id', this.stamp + `-${i}`);
           this.contentHeightList.push(content[i].offsetHeight);
           this.activities.push({
@@ -114,7 +117,6 @@ export default {
     },
     clickNav(index) {
       this.updateNavItemHeightGroup();
-
       // 滚动距离
       let height = 0;
       let heightList = [];

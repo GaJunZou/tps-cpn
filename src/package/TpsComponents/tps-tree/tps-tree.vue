@@ -13,7 +13,7 @@
     </div>
     <el-tree
       ref="tpsTree"
-      class="zz-tree zz-scroller"
+      class="tps-tree tps-scroller"
       highlight-current
       show-checkbox
       empty-text="暂无数据"
@@ -26,7 +26,7 @@
     ></el-tree>
     <div
       v-if="showFooter && checkedLeafNode.length"
-      class="show-checked zz-scroller"
+      class="show-checked tps-scroller"
       :style="{ width: footerWidth, height: footerHeight }"
     >
       <div class="show-checked-title">

@@ -1,6 +1,12 @@
 <template>
   <div class="tps-input">
-    <el-input :placeholder="placeholder" v-model.trim="inputValue" :readonly="readonly" clearable>
+    <el-input
+      :placeholder="placeholder"
+      v-model.trim="inputValue"
+      :readonly="readonly"
+      clearable
+      :maxlength="maxlength"
+    >
       <template slot="append" v-if="limit">{{ inputLength }}/{{ limit }}</template>
       <template slot="append" v-else>{{ inputLength }}项</template>
     </el-input>
@@ -38,8 +44,14 @@ export default {
       },
     },
     inputLength() {
-      if (this.value === '') return 0;
-      return this.value.split(',').filter((v) => v).length;
+      if (this.inputValue === '') return 0;
+      return this.inputValue.split(',').filter((v) => v).length;
+    },
+    maxlength() {
+      if (this.limit && this.inputLength === this.limit) {
+        return this.inputValue.length;
+      }
+      return null;
     },
   },
   data() {

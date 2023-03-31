@@ -1,4 +1,4 @@
-#my-nav {
+.tps-nav {
   overflow: hidden;
   display: flex;
   color: #303133;
@@ -13,7 +13,7 @@
       background-color: #fff;
       border: 1px solid #ebeef5;
       border-radius: 4px;
-      box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 10%);
     }
     .timeline-panel {
       margin: 10px;
@@ -21,12 +21,15 @@
       background-color: #fff;
       border: 1px solid #ebeef5;
       border-radius: 4px;
-      box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 10%);
     }
     /deep/ .el-timeline {
       padding: 0;
+      margin: 15px 20px;
+      color: #909399;
       .el-timeline-item {
         cursor: pointer;
+        padding-bottom: 40px;
         .el-timeline-item__wrapper {
           padding-left: 0;
           padding-left: 18px;
@@ -37,6 +40,9 @@
       }
       .el-timeline-item:hover {
         color: #409eff;
+      }
+      .el-timeline-item:last-child {
+        padding-bottom: 0;
       }
     }
   }

@@ -21,7 +21,7 @@
     @close="close"
     @closed="closed"
   >
-    <component :is="props.content" :params="props.params" :dialog.sync="dialog"></component>
+    <component :is="props.content" v-bind="props.params" :dialog.sync="dialog"></component>
     <span v-if="props.footer" slot="footer" class="dialog-footer">
       <el-button @click="cancel()">
         {{ props.cancelText }}
@@ -52,6 +52,7 @@ export default {
       onConfirm: this.confirm,
       onCancel: this.cancel,
     };
+    console.log(this.props);
   },
   props: {
     props: {

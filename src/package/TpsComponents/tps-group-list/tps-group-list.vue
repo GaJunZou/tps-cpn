@@ -23,7 +23,7 @@
           </el-button>
           <el-button v-if="multiple" class="head-btn" type="primary" @click="allSelect(true)">全选</el-button>
         </div>
-        <div class="sel-content zz-scroller">
+        <div class="sel-content tps-scroller">
           <div v-for="(value, index) in options_" :key="index">
             <div
               v-show="value[fieldConfig.children].length !== 0 && !value.hidden"
@@ -62,7 +62,7 @@
           </div>
         </div>
       </div>
-      <div slot="reference" class="com-input zz-cpn" :style="{ width: width }" @click="$refs.input.blur()">
+      <div slot="reference" class="com-input tps-cpn" :style="{ width: width }" @click="$refs.input.blur()">
         <el-input clearable ref="input" :placeholder="placeholder" v-model="checkedListString">
           <template v-if="label" slot="prepend">{{ label }}</template>
           <template slot="append">{{ checkedList.length }}项</template>
@@ -148,8 +148,7 @@ export default {
   },
   watch: {
     options: {
-      handler(val) {
-        console.log(val);
+      handler() {
         this.init();
       },
       deep: true,

@@ -1,69 +1,4 @@
 /**
- * 获取对象数组中重复的项（[1,1,2] 会返回 [1]）。
- * @param {*} origin 源数组
- * @param {*} field 数组项中用于判断是否重复的字段
- */
-export const getDuplicateItem = (origin, field) => {
-  return duplicate(origin, field, 'get');
-};
-
-/**
- * 去除对象数组中重复的项（[1,1,2] 会返回 [1,2]）。
- * @param {*} origin 源数组
- * @param {*} field 数组项中用于判断是否重复的字段
- */
-export const removeDuplicateItem = (origin, field) => {
-  return duplicate(origin, field, 'remove');
-};
-
-/**
- * 消除对象数组中重复的项（[1,1,2] 会返回 [2]）。
- * @param {*} origin 源数组
- * @param {*} field 数组项中用于判断是否重复的字段
- */
-export const deleteDuplicateItem = (origin, field) => {
-  return duplicate(origin, field, 'delete');
-};
-
-/**
- * 重复的数组数组。为对象数组时需要 value 判断数组项是否相等。
- * @param {*} origin 源数组
- * @param {*} filed 数组项中用于判断是否重复的字段
- * @param {*} type 返回何种类型: 'get': 返回重复数组；'remove': 返回去重后的源数组；'delete': 返回删除重复项后的源数组。
- */
-function duplicate(origin, filed, type) {
-  if (!filed) {
-    return Array.from(new Set(origin));
-  } else {
-    if (type === 'delete') {
-      let list = [];
-      for (let i = 0; i < origin.length; i++) {
-        for (let j = i + 1; j < origin.length; j++) {
-          if (origin[j][filed] == origin[i][filed]) {
-            list.push(i);
-            list.push(j);
-          }
-        }
-      }
-      list = Array.from(new Set(list));
-      list.forEach((v) => origin.splice(v, 1, null));
-      return origin.filter(Boolean);
-    } else {
-      let list = []; // 重合部分
-      for (let i = 0; i < origin.length; i++) {
-        for (let j = i + 1; j < origin.length; j++) {
-          if (origin[j][filed] == origin[i][filed]) {
-            list.push(...origin.splice(j, 1));
-            j--;
-          }
-        }
-      }
-      return type === 'get' ? list : origin;
-    }
-  }
-}
-
-/**
  * 获取URL参数
  * @param {*参数名} name
  * @returns
@@ -166,4 +101,9 @@ export const dateFormat = (date, fmt) => {
     }
   }
   return fmt;
+};
+
+// 获取唯一键
+export const getUnique = () => {
+  return Math.random().toString(36).substr(2, 9);
 };

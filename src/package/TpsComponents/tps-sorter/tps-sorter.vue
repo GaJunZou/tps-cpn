@@ -18,12 +18,6 @@ export default {
       isClickSort: false,
     };
   },
-  // updated() {
-  //   console.log(this.active);
-  //   if (!this.isClickSort) {
-  //     this.active = '';
-  //   }
-  // },
   methods: {
     sort(value) {
       this.isClickSort = true;
@@ -31,9 +25,6 @@ export default {
       this.findSorterGroup(this.$root.$children);
       this.group.forEach((v) => (v.active = v.id === this.id ? value : ''));
       this.group = [];
-      // this.$nextTick(() => {
-      //   this.group.forEach((v) => (v.isClickSort = false));
-      // });
     },
 
     findSorterGroup(children) {

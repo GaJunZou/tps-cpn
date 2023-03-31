@@ -1,6 +1,12 @@
 <template>
   <div class="tps-cascader">
-    <el-popover placement="top-start" trigger="click" @after-enter="focusInput">
+    <el-popover
+      placement="top-start"
+      trigger="click"
+      @after-enter="focusInput"
+      :visible-arrow="false"
+      :disabled="!options.length"
+    >
       <div class="cascader-bar">
         <el-input ref="searchInput" clearable v-model="searchText" @keydown.enter="search"></el-input>
         <el-button v-if="lazy" type="primary" @click="search">搜索</el-button>
@@ -20,7 +26,7 @@
           >
             全选
           </el-checkbox>
-          <ul class="tps-list-content zz-scroller">
+          <ul class="tps-list-content tps-scroller">
             <li class="tps-list" v-for="(val, index) in filterFlatOptions" :key="index">
               <div class="tps-item">
                 <el-checkbox v-model="val.checked" @change="checkEvent($event, val)">
@@ -32,18 +38,23 @@
         </div>
       </div>
       <div v-show="!searchText" class="tps-cascader-wrapper">
-        <el-cascader-panel
-          lazy
-          ref="tpsCascader"
-          v-model="inputValue"
-          :options="options"
-          :props="props"
-          :lazyLoad="lazyLoad"
-          @expand-change="setFooterWidth"
-        ></el-cascader-panel>
+        <div>
+          <el-cascader-panel
+            lazy
+            ref="tpsCascader"
+            v-model="inputValue"
+            :options="options"
+            :props="props"
+            :lazyLoad="lazyLoad"
+            @expand-change="setFooterWidth"
+          ></el-cascader-panel>
+        </div>
+        <!-- <div v-show="options.length === 0">
+          <el-empty description="暂无数据"></el-empty>
+        </div> -->
       </div>
       <div
-        class="cascader-footer zz-scroller"
+        class="cascader-footer tps-scroller"
         :style="{ width: width === 0 ? '400px' : width + 'px' }"
         v-if="checkedList.length > 0"
       >
@@ -52,8 +63,10 @@
           {{ value[fieldConfig.label] }}
         </el-tag>
       </div>
-      <div slot="reference" class="zz-cpn" @click="$refs.input.blur()">
-        <el-input ref="input" :placeholder="placeholder" v-model="checkedStr" clearable @change="clean"></el-input>
+      <div slot="reference" class="tps-cpn" @click="$refs.input.blur()">
+        <el-input ref="input" :placeholder="placeholder" v-model="checkedStr" clearable @change="clean">
+          <template v-if="append" slot="append">{{ append }}</template>
+        </el-input>
       </div>
     </el-popover>
   </div>
@@ -131,16 +144,36 @@ export default {
       type: Function,
       default: () => {},
     },
+    append: {
+      type: String,
+      default: '',
+    },
   },
   watch: {
+    options: {
+      handler() {
+        this.flatOptions = this.flatMapOptions(this.options || []);
+        const value = this.value;
+        if (this.multiple) {
+          this.inputValue = value || [];
+        } else {
+          if (Array.isArray(value)) {
+            this.inputValue = value[0];
+          } else {
+            this.inputValue = value;
+          }
+        }
+        this.$nextTick(() => this.init());
+      },
+      deep: true,
+      immediate: true,
+    },
     inputValue: {
       handler() {
-        this.$nextTick(() => {
-          this.setFooterWidth();
-          this.updateCheckboxList();
-          this.getCheckedNode();
-        });
+        this.$nextTick(() => this.init());
       },
+      immediate: true,
+      deep: true,
     },
     searchText: {
       handler(val) {
@@ -157,27 +190,13 @@ export default {
   },
   created() {
     this.initProps();
-    const options = {
-      deep: true,
-      immediate: true,
-    };
-    const handler = (val) => {
-      if (this.multiple) {
-        this.inputValue = val || [];
-      } else {
-        if (Array.isArray(val)) {
-          this.inputValue = val[0];
-        } else {
-          this.inputValue = val;
-        }
-      }
-    };
-    this.$watch('value', handler, options)();
-  },
-  mounted() {
-    this.flatOptions = this.flatMapOptions(this.options || []);
   },
   methods: {
+    init() {
+      this.setFooterWidth();
+      this.updateCheckboxList();
+      this.getCheckedNode();
+    },
     focusInput() {
       this.$nextTick(() => {
         if (!this.lazy) {
@@ -317,7 +336,6 @@ export default {
       }
     },
     checkEvent($event, option) {
-      console.log($event, option); // true {}
       if (this.multiple) {
         if ($event) {
           this.inputValue = [...this.inputValue, option[this.fieldConfig.value]];

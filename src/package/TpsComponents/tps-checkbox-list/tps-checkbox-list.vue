@@ -1,6 +1,6 @@
 <template>
-  <div class="zz-checkbox-list zz-cpn">
-    <el-popover placement="bottom" trigger="click">
+  <div class="tps-checkbox-list tps-cpn">
+    <el-popover placement="bottom" trigger="click" @after-leave="afterLeave">
       <div class="sales-select">
         <div class="sales-select-label">
           <el-input
@@ -36,7 +36,7 @@
           ></el-pagination>
         </div>
       </div>
-      <div slot="reference" class="zz-cpn" :style="{ width: width }" @click="$refs.input.blur()">
+      <div slot="reference" class="tps-cpn" :style="{ width: width }" @click="$refs.input.blur()">
         <el-input
           ref="input"
           clearable
@@ -229,6 +229,7 @@ export default {
       this.checkedList = [];
       this.key++;
       this.emit();
+      this.chearHandle();
     },
     emit() {
       this.checkedString = this.checkedList.map((v) => v.label).join(',');
@@ -236,6 +237,15 @@ export default {
         'change',
         this.checkedList.map((v) => v.value)
       );
+    },
+    afterLeave() {
+      this.$emit(
+        'after-leave',
+        this.checkedList.map((v) => v.value)
+      );
+    },
+    chearHandle() {
+      this.$emit('clear', []);
     },
   },
 };
